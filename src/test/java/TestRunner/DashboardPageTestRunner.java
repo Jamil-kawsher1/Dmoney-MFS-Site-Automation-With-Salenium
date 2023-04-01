@@ -80,5 +80,15 @@ public class DashboardPageTestRunner extends Setup {
 
 
     }
+@Test(priority = 4,description = "Update User password")
+    public void updatePassword() throws InterruptedException {
+        dashboardPage=new DashboardPage(driver);
+        String password="updatedPass123";
+        dashboardPage.updatePassword(password);
+    String msg = dashboardPage.successMsg.getText();
+//        System.out.println(msg);
+    Thread.sleep(3000);
+    Assert.assertEquals(msg, "User Update Successfully!");
+    }
 
 }

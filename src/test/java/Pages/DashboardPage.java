@@ -39,6 +39,9 @@ public class DashboardPage  {
     @FindBy(tagName = "input")
     WebElement search;
 
+    @FindBy(className = "fa-pencil")
+    WebElement editPencil;
+
     public DashboardPage (WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
@@ -102,6 +105,15 @@ public class DashboardPage  {
         search.sendKeys(Keys.ENTER);
         Thread.sleep(2000);
 
+    }
+
+    public void updatePassword(String password) throws InterruptedException {
+        editPencil.click();
+        Thread.sleep(3000);
+        createUserFieldList.get(2).sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+        Thread.sleep(1000);
+        createUserFieldList.get(2).sendKeys(password);
+        button.click();
     }
 }
 
