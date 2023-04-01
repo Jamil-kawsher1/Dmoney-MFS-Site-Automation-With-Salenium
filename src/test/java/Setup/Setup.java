@@ -26,6 +26,6 @@ public WebDriver driver;
 @AfterTest
     public void close() throws InterruptedException {
     Thread.sleep(5000);
-//    driver.close();
+    driver.close();
 }
 }

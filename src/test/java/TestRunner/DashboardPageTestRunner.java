@@ -3,11 +3,15 @@ package TestRunner;
 import Pages.DashboardPage;
 import Pages.SignInPage;
 import Setup.Setup;
+import Utils.Utils;
 import com.github.javafaker.Faker;
 import com.github.javafaker.PhoneNumber;
+import org.json.simple.parser.ParseException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import java.io.IOException;
 
 public class DashboardPageTestRunner extends Setup {
     @BeforeTest
@@ -22,7 +26,7 @@ public class DashboardPageTestRunner extends Setup {
 
     //    String name,String email,String password,String phone,String nidNumber,String role
     @Test(priority = 1, description = "create New Agent")
-    public void createNewAgent () throws InterruptedException {
+    public void createNewAgent () throws InterruptedException, IOException, ParseException {
         dashboardPage = new DashboardPage(driver);
         Faker faker = new Faker();
         String name = faker.name().fullName();
@@ -37,12 +41,14 @@ public class DashboardPageTestRunner extends Setup {
 //        System.out.println(msg);
         Thread.sleep(3000);
         Assert.assertEquals(msg, "User created");
-
+        String filename = "./src/test/resources/AgentList.json";
+        Utils.addIntoJsonList(filename, name, email, phoneNumber, "Agent");
+        Thread.sleep(1000);
         dashboardPage.okButtonPassOrFail.click();
     }
 
     @Test(priority = 2, description = "create New Customer", enabled = true)
-    public void createNewCustomer () throws InterruptedException {
+    public void createNewCustomer () throws InterruptedException, IOException, ParseException {
         driver.navigate().refresh();
         Thread.sleep(3000);
         dashboardPage = new DashboardPage(driver);
@@ -59,8 +65,20 @@ public class DashboardPageTestRunner extends Setup {
 //        System.out.println(msg);
         Thread.sleep(3000);
         Assert.assertEquals(msg, "User created");
-
+        String filename = "./src/test/resources/CustomerList.json";
+        Utils.addIntoJsonList(filename, name, email, phoneNumber, "Customer");
+        Thread.sleep(1000);
         dashboardPage.okButtonPassOrFail.click();
+    }
+
+    @Test(priority = 3, description = "Search Newly Created Customer")
+    public void searchUser () throws InterruptedException, IOException, ParseException {
+        dashboardPage = new DashboardPage(driver);
+        String filename = "./src/test/resources/CustomerList.json";
+        String phone = (String) Utils.readJSONFile(filename, 1).get("phone");
+        dashboardPage.doSearch(phone);
+
+
     }
 
 }

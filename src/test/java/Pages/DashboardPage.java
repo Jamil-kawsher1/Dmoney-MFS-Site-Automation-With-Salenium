@@ -35,7 +35,9 @@ public class DashboardPage  {
     // success/fail ok button
     @FindBy(className = "swal2-confirm")
    public WebElement okButtonPassOrFail;
-
+    //search button input
+    @FindBy(tagName = "input")
+    WebElement search;
 
     public DashboardPage (WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -92,6 +94,14 @@ public class DashboardPage  {
 //        Thread.sleep(5000);
 //        dropDownOption.selectByValue(role);
         button.click();
+    }
+
+    public void doSearch(String phone) throws InterruptedException {
+        dashboardMenuList.get(0).click();
+        search.sendKeys(phone);
+        search.sendKeys(Keys.ENTER);
+        Thread.sleep(2000);
+
     }
 }
 
