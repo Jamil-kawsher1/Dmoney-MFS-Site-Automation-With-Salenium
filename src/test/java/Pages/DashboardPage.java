@@ -40,9 +40,10 @@ public class DashboardPage {
 
     @FindBy(className = "fa-pencil")
     WebElement editPencil;
-// Success/Fail status Main title
+    // Success/Fail status Main title
     @FindBy(className = "swal2-title")
-  public   WebElement successFailStatusTitle;
+    public WebElement successFailStatusTitle;
+
     public DashboardPage (WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
@@ -113,6 +114,7 @@ public class DashboardPage {
         createUserFieldList.get(2).sendKeys(password);
         button.click();
     }
+
     //deposit from account to Account
     //transaction confirm Button
     @FindBy(className = "swal2-confirm")
@@ -122,11 +124,19 @@ public class DashboardPage {
 
     @FindBy(css = "input[placeholder='To Account']")
     WebElement toAccount;
-    @FindBy(css ="input[placeholder='Enter Number of Amount']" )
+    @FindBy(css = "input[placeholder='Enter Number of Amount']")
     WebElement depositAmount;
 
+    //users control option button like SignOut profile
+    @FindBy(className = "notifications")
+    WebElement profileControl;
+    //dropdown option list profile/logout
+    @FindBy(className = "dropdown-item")
+    List<WebElement> dropdownList;
+
+
     //Dashboard actions and options for System account
-    public void depositFromSystemAccount (String toAccount,String amount) throws InterruptedException {
+    public void depositToAccounts (String toAccount, String amount) throws InterruptedException {
         //deposit action Link(index 2)
         dashboardMenuList.get(2).click();
         this.toAccount.sendKeys(toAccount);
@@ -134,6 +144,12 @@ public class DashboardPage {
         button.click();
         Thread.sleep(2000);
         confirmButton.click();
+    }
+
+    public void doLogout () {
+        profileControl.click();
+        //logout option from List
+        dropdownList.get(1).click();
     }
 
 }
