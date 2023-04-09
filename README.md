@@ -41,7 +41,8 @@ https://user-images.githubusercontent.com/42008531/230768201-11208e9f-270f-4116-
 ## Test Case:
 https://docs.google.com/spreadsheets/d/1XRsdEiDuIZh1Pt00d-sPeOD4dE5LaGtN/edit?usp=sharing&ouid=105413695096846736430&rtpof=true&sd=true
 
-
+## Bug Report:
+https://docs.google.com/spreadsheets/d/1G5j-wOpPxkmcVWtJjlYe-ndww9bHZzv7/edit?usp=sharing&ouid=105413695096846736430&rtpof=true&sd=true
 
 # Allure report Screenshots
 ![DmoneyAutomation1](https://user-images.githubusercontent.com/42008531/230767348-9c260653-0d57-4643-b2db-20bc0ee17ed2.jpg)
