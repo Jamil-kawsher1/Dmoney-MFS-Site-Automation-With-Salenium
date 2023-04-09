@@ -1,6 +1,9 @@
 package Pages;
 
 import Setup.Setup;
+import Utils.Utils;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -9,13 +12,15 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import java.io.IOException;
 import java.util.List;
 
 public class DashboardPage {
 
 
     @FindBy(tagName = "li")
-    List<WebElement> dashboardMenuList;
+    public List<WebElement> dashboardMenuList;
+
     //Input Field of Create user
     @FindBy(tagName = "input")
     List<WebElement> createUserFieldList;
@@ -43,6 +48,43 @@ public class DashboardPage {
     // Success/Fail status Main title
     @FindBy(className = "swal2-title")
     public WebElement successFailStatusTitle;
+
+    //deposit from account to Account
+    //transaction confirm Button
+    @FindBy(className = "swal2-confirm")
+    WebElement confirmButton;
+    @FindBy(className = "swal2-cancel")
+    WebElement cancelButton;
+
+    //deposit option filed targeting
+    @FindBy(css = "input[placeholder='To Account']")
+    WebElement toAccount;
+    @FindBy(css = "input[placeholder='Enter Number of Amount']")
+    WebElement depositAmount;
+
+    //users control option button like SignOut profile
+    @FindBy(className = "notifications")
+    WebElement profileControl;
+    //dropdown option list profile/logout
+    @FindBy(className = "dropdown-item")
+
+    List<WebElement> dropdownList;
+    //transaction table Data
+    @FindBy(css = "td")
+    public List<WebElement> tableData;
+
+    //sendMoney/payment option filed targeting
+
+    @FindBy(css = "input[placeholder='Enter Your Account Number']")
+    WebElement toAccountSendMoney;
+    @FindBy(css = "input[placeholder='Enter Number of Amount']")
+    WebElement depositAmountSend;
+    //balance field
+    @FindBy(tagName = "h2")
+    public WebElement balanceField;
+    //success fail big dialog box
+    @FindBy(id = "swal2-html-container")
+    public WebElement subHaddingBalanceanFeeTrasactionId;
 
     public DashboardPage (WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -96,10 +138,12 @@ public class DashboardPage {
 //        Thread.sleep(5000);
 //        dropDownOption.selectByValue(role);
         button.click();
+
     }
 
-    public void doSearch (String phone) throws InterruptedException {
-        dashboardMenuList.get(0).click();
+    public void doSearch (String phone,int index) throws InterruptedException {
+        dashboardMenuList.get(index).click();
+        Thread.sleep(1000);
         search.sendKeys(phone);
         search.sendKeys(Keys.ENTER);
         Thread.sleep(2000);
@@ -114,25 +158,6 @@ public class DashboardPage {
         createUserFieldList.get(2).sendKeys(password);
         button.click();
     }
-
-    //deposit from account to Account
-    //transaction confirm Button
-    @FindBy(className = "swal2-confirm")
-    WebElement confirmButton;
-    @FindBy(className = "swal2-cancel")
-    WebElement cancelButton;
-
-    @FindBy(css = "input[placeholder='To Account']")
-    WebElement toAccount;
-    @FindBy(css = "input[placeholder='Enter Number of Amount']")
-    WebElement depositAmount;
-
-    //users control option button like SignOut profile
-    @FindBy(className = "notifications")
-    WebElement profileControl;
-    //dropdown option list profile/logout
-    @FindBy(className = "dropdown-item")
-    List<WebElement> dropdownList;
 
 
     //Dashboard actions and options for System account
@@ -151,6 +176,46 @@ public class DashboardPage {
         //logout option from List
         dropdownList.get(1).click();
     }
+
+
+    public void doSendMoney (String toAccount, String amount) throws InterruptedException {
+        dashboardMenuList.get(1).click();
+        Thread.sleep(3000);
+        toAccountSendMoney.sendKeys(toAccount);
+        depositAmount.sendKeys(amount);
+        button.click();
+        Thread.sleep(2000);
+        confirmButton.click();
+        Thread.sleep(2000);
+
+        okButtonPassOrFail.click();
+        Thread.sleep(2000);
+        dashboardMenuList.get(0).click();
+        Thread.sleep(2000);
+
+    }
+
+    public void doWithdrawal (String agentNumber, String amount) throws InterruptedException {
+        Thread.sleep(1000);
+        dashboardMenuList.get(2).click();
+        Thread.sleep(2000);
+        toAccountSendMoney.sendKeys(agentNumber);
+        depositAmountSend.sendKeys(amount);
+        button.click();
+        Thread.sleep(2000);
+        confirmButton.click();
+
+
+    }
+public void doPaymentToMerchant(String phoneNumber,String amount) throws InterruptedException {
+        dashboardMenuList.get(3).click();
+        Thread.sleep(2000);
+        toAccountSendMoney.sendKeys(phoneNumber);
+        depositAmountSend.sendKeys(amount);
+        button.click();
+    confirmButton.click();
+
+}
 
 }
 

@@ -11,6 +11,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Utils {
+
+    //Method Overloading
+    public static void addIntoJsonList (String fileLocation, String transactionId) throws IOException, ParseException {
+        String fileName = fileLocation;
+        JSONParser jsonParser = new JSONParser();
+        Object obj = jsonParser.parse(new FileReader(fileName));
+        JSONArray jsonArray = (JSONArray) obj;
+        JSONObject jsonList = new JSONObject();
+        jsonList.put("transactionId",transactionId);
+
+        jsonArray.add(jsonList);
+        FileWriter file = new FileWriter(fileName);
+        file.write(jsonArray.toJSONString());
+        file.flush();
+        file.close();
+    }
     public static void addIntoJsonList (String fileLocation, String name, String email, String phone, String role) throws IOException, ParseException {
         String fileName = fileLocation;
         JSONParser jsonParser = new JSONParser();

@@ -12,6 +12,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DashboardPageTestRunner extends Setup {
     @BeforeTest
@@ -76,7 +78,7 @@ public class DashboardPageTestRunner extends Setup {
         dashboardPage = new DashboardPage(driver);
         String filename = "./src/test/resources/CustomerList.json";
         String phone = (String) Utils.readJSONFile(filename, 1).get("phone");
-        dashboardPage.doSearch(phone);
+        dashboardPage.doSearch(phone,0);
 
 
     }
@@ -89,6 +91,7 @@ public class DashboardPageTestRunner extends Setup {
 //        System.out.println(msg);
     Thread.sleep(3000);
     Assert.assertEquals(msg, "User Update Successfully!");
+    dashboardPage.okButtonPassOrFail.click();
     }
 
 }

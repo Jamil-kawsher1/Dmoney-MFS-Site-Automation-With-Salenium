@@ -1,0 +1,17 @@
+<suite thread-count="1" verbose="1" name="Dmoney MFS  Site Automation">
+    <test name="DMoney login test">
+        <classes>
+            <class name="TestRunner.SingUpTestRunner"/>
+        </classes>
+    </test>
+    <test name="Dmoney dashboard Page test">
+        <classes>
+            <class name="TestRunner.DashboardPageTestRunner"/>
+        </classes>
+    </test>
+    <test name="Dmoney Transactions Test">
+        <classes>
+            <class name="TestRunner.TransactionTestRunner"/>
+        </classes>
+    </test>
+</suite>
